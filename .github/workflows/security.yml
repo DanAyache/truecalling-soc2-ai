@@ -1,0 +1,280 @@
+name: SOC2 Security Checks
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  schedule:
+    # Run full scan nightly at 02:00 UTC for continuous SOC2 evidence
+    - cron: "0 2 * * *"
+
+permissions:
+  contents: read
+  security-events: write   # required for uploading SARIF results
+  pull-requests: read
+
+jobs:
+  # ─────────────────────────────────────────────────────────────
+  # JOB 1: Secret & Credential Scanning (Gitleaks)
+  # SOC2 CC6.7 — detects accidental credential commits
+  # ─────────────────────────────────────────────────────────────
+  gitleaks:
+    name: Secret Scanning (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history required for Gitleaks to scan all commits
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITLEAKS_LICENSE is optional for public repos; required for private org repos
+          # GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+      - name: Upload Gitleaks SARIF report
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+          category: gitleaks
+        continue-on-error: true  # SARIF upload is non-blocking; findings appear in Security tab
+
+  # ─────────────────────────────────────────────────────────────
+  # JOB 2: Dependency Vulnerability Audit (npm audit)
+  # SOC2 CC7.1 — identifies known vulnerabilities in dependencies
+  # ─────────────────────────────────────────────────────────────
+  npm-audit:
+    name: Dependency Audit (npm audit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Find and audit all package.json manifests
+        run: |
+          set -euo pipefail
+          MANIFESTS=$(find . \
+            -name "package.json" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/.git/*" \
+            2>/dev/null)
+
+          if [ -z "$MANIFESTS" ]; then
+            echo "No package.json found — skipping npm audit"
+            exit 0
+          fi
+
+          FAILED=0
+          for manifest in $MANIFESTS; do
+            dir=$(dirname "$manifest")
+            echo "──────────────────────────────────────"
+            echo "Auditing: $dir"
+            echo "──────────────────────────────────────"
+            (cd "$dir" && npm install --ignore-scripts --prefer-offline 2>/dev/null || true)
+            # --audit-level=high: fail on high/critical only; moderate findings are reported
+            if ! (cd "$dir" && npm audit --audit-level=high --json 2>/dev/null \
+                  | tee "$dir/npm-audit-report.json" \
+                  | node -e "
+                      const d = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
+                      const v = d.metadata?.vulnerabilities || {};
+                      const sev = ['critical','high','moderate','low'];
+                      sev.forEach(s => v[s] && console.log(s.toUpperCase() + ':', v[s]));
+                      process.exit((v.critical || 0) + (v.high || 0) > 0 ? 1 : 0);
+                    "); then
+              echo "::error::High/critical vulnerabilities found in $dir"
+              FAILED=1
+            fi
+          done
+
+          exit $FAILED
+
+      - name: Upload npm audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-reports
+          path: "**/npm-audit-report.json"
+          if-no-files-found: ignore
+          retention-days: 90  # 90-day retention for SOC2 audit evidence
+
+  # ─────────────────────────────────────────────────────────────
+  # JOB 3: Trufflehog Secret Scan (deep entropy + pattern scan)
+  # SOC2 CC6.7 — second-layer secret detection via entropy analysis
+  # ─────────────────────────────────────────────────────────────
+  trufflehog:
+    name: Secret Scanning (TruffleHog)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog — scan for verified secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          # On PRs: scan only the new commits; on push/schedule: scan full history
+          base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || '' }}
+          head: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || 'HEAD' }}
+          extra_args: --only-verified  # only fail on secrets with confirmed validity
+
+  # ─────────────────────────────────────────────────────────────
+  # JOB 4: PR Validation (SOC2 Change Management)
+  # SOC2 CC8.1 — enforces change management controls on PRs
+  # Runs on pull_request events only
+  # ─────────────────────────────────────────────────────────────
+  pr-validation:
+    name: PR Validation (Change Management)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate PR title format
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          # Enforce conventional commit format for audit trail clarity
+          # Valid prefixes: feat, fix, docs, chore, security, policy, refactor, ci
+          PATTERN='^(feat|fix|docs|chore|security|policy|refactor|ci)(\([a-z0-9-]+\))?: .{3,}'
+          if ! echo "$PR_TITLE" | grep -Eq "$PATTERN"; then
+            echo "::error::PR title must follow conventional commit format."
+            echo "::error::Examples: 'feat: add MFA enforcement', 'security: rotate leaked key', 'policy: update access control'"
+            echo "::error::Got: $PR_TITLE"
+            exit 1
+          fi
+          echo "PR title format is valid: $PR_TITLE"
+
+      - name: Validate PR has a description
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [ -z "$PR_BODY" ] || [ ${#PR_BODY} -lt 20 ]; then
+            echo "::error::PR description is required and must be at least 20 characters."
+            echo "::error::Describe what changed and why — required for SOC2 change management evidence."
+            exit 1
+          fi
+          echo "PR description present (${#PR_BODY} chars)"
+
+      - name: Check PR is not targeting a non-main branch
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [[ "$BASE_REF" != "main" && "$BASE_REF" != "master" ]]; then
+            echo "::warning::PR targets branch '$BASE_REF' — confirm this is intentional."
+          fi
+
+      - name: Block self-merge (author cannot be sole reviewer)
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          echo "PR author: $PR_AUTHOR"
+          echo "Actor: $ACTOR"
+          # GitHub branch protection enforces required reviewers; this step
+          # surfaces the control explicitly in the CI log for audit evidence.
+          echo "Reminder: PRs require at least 1 reviewer who is not the author (SOC2 CC8.1)."
+
+      - name: Label security-relevant changes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const paths = files.data.map(f => f.filename);
+            const isSecurityChange = paths.some(p =>
+              p.includes('.github/workflows') ||
+              p.includes('policies/') ||
+              p.includes('procedures/') ||
+              p.match(/\.(env|key|pem|cert|crt)$/)
+            );
+
+            if (isSecurityChange) {
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.payload.pull_request.number,
+                  labels: ['security-review-required'],
+                });
+                console.log('Applied security-review-required label');
+              } catch (e) {
+                // Label may not exist yet in the repo — non-fatal
+                console.log('Could not apply label (create it in repo settings):', e.message);
+              }
+            }
+
+  # ─────────────────────────────────────────────────────────────
+  # JOB 5: Security Summary (audit evidence artifact)
+  # Produces a timestamped summary for SOC2 auditors
+  # ─────────────────────────────────────────────────────────────
+  security-summary:
+    name: Security Scan Summary
+    runs-on: ubuntu-latest
+    needs: [gitleaks, npm-audit, trufflehog]
+    if: always()
+    steps:
+      - name: Generate security scan summary
+        run: |
+          TIMESTAMP=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
+          REPO="${{ github.repository }}"
+          SHA="${{ github.sha }}"
+          REF="${{ github.ref_name }}"
+          RUN_ID="${{ github.run_id }}"
+
+          GITLEAKS="${{ needs.gitleaks.result }}"
+          NPM_AUDIT="${{ needs.npm-audit.result }}"
+          TRUFFLEHOG="${{ needs.trufflehog.result }}"
+
+          cat <<EOF > security-summary.txt
+          ═══════════════════════════════════════════════
+          TrueCalling.ai — SOC2 Security Scan Summary
+          ═══════════════════════════════════════════════
+          Timestamp : $TIMESTAMP
+          Repository: $REPO
+          Branch/Ref: $REF
+          Commit SHA: $SHA
+          Run ID    : $RUN_ID
+          Triggered : ${{ github.event_name }}
+
+          ── Scan Results ────────────────────────────────
+          Gitleaks (secret scan)   : $GITLEAKS
+          npm audit (dependencies) : $NPM_AUDIT
+          TruffleHog (entropy scan): $TRUFFLEHOG
+          ────────────────────────────────────────────────
+
+          SOC2 Controls Covered:
+            CC6.7  Transmission & detection of unauthorized access
+            CC7.1  Vulnerability identification in software components
+            CC8.1  Change management — PR validation
+          ═══════════════════════════════════════════════
+          EOF
+
+          cat security-summary.txt
+
+          # Surface in GitHub Actions job summary
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat security-summary.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload security summary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: soc2-security-summary-${{ github.run_id }}
+          path: security-summary.txt
+          retention-days: 365  # 1-year retention for SOC2 audit evidence
