@@ -193,5 +193,5 @@ If access cannot be revoked within 4 hours (system outage, account dispute, etc.
 
 ---
 
-*Procedure Owner: Engineering Lead — stephane@truecalling.ai*  
+*Procedure Owner: Engineering Lead — engineering-lead@truecalling.ai*  
 *Next Review: 2027-05-27*

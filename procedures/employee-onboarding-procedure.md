@@ -143,5 +143,5 @@ Before closing the onboarding issue, confirm:
 
 ---
 
-*Procedure Owner: Engineering Lead — stephane@truecalling.ai*  
+*Procedure Owner: Engineering Lead — engineering-lead@truecalling.ai*  
 *Next Review: 2027-05-27*

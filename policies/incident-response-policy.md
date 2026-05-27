@@ -172,5 +172,5 @@ The incident response process is tested at least **annually** via a tabletop exe
 
 ---
 
-*Policy Owner: Engineering Lead — stephane@truecalling.ai*  
+*Policy Owner: Engineering Lead — engineering-lead@truecalling.ai*  
 *Next Review: 2027-05-27*
