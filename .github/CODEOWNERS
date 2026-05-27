@@ -1,0 +1,19 @@
+# CODEOWNERS — TrueCalling.ai
+#
+# Enforces mandatory review on security-sensitive paths (SOC2 CC8.1).
+# The Engineering Lead must approve any change to policies, procedures,
+# workflows, or evidence before it can be merged to main.
+#
+# Syntax: <pattern> <GitHub username or team>
+# The last matching rule takes precedence.
+
+# Default owner for everything not matched below
+*                               @stephane-truecalling
+
+# Security-sensitive paths — Engineering Lead required on all changes
+/policies/                      @stephane-truecalling
+/procedures/                    @stephane-truecalling
+/evidence/                      @stephane-truecalling
+/.github/workflows/             @stephane-truecalling
+/.github/CODEOWNERS             @stephane-truecalling
+/.github/dependabot.yml         @stephane-truecalling
