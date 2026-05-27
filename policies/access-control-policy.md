@@ -4,7 +4,8 @@
 **Version:** 1.0  
 **Effective Date:** 2026-05-27  
 **Owner:** Engineering Lead  
-**Review Cycle:** Annual
+**Review Cycle:** Annual  
+**SOC 2 Criteria:** CC6.1, CC6.2, CC6.3 (Logical Access Controls)
 
 ---
 

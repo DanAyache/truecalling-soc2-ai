@@ -4,7 +4,8 @@
 **Version:** 1.0  
 **Effective Date:** 2026-05-27  
 **Owner:** Engineering Lead  
-**Review Cycle:** Annual
+**Review Cycle:** Annual  
+**SOC 2 Criteria:** CC7.1, CC7.2, CC7.3 (Threat Monitoring and Incident Response)
 
 ---
 
