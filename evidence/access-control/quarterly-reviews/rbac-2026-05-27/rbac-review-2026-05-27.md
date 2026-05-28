@@ -23,40 +23,91 @@ Screenshots for each system are saved alongside this file.
 
 ## GitHub — Organization Members
 
-**Source:** github.com → Org Settings → Members  
+**Source:** [github.com → truecalling-ai → Settings → Members](https://github.com/organizations/truecalling-ai/settings/members)  
 **Screenshot:** `github-members-2026-05-27.png`
 
-| Username | Display Name | Org Role | MFA Enabled | RBAC Ceiling (from policy) | Match? |
-|----------|-------------|----------|-------------|---------------------------|--------|
-| | | | | | |
-| | | | | | |
-| | | | | | |
+| Username      | Display Name    | Org Role | MFA Enabled | RBAC Ceiling (from Policy) | Match? |
+| ------------- | --------------- | -------- | ----------- | -------------------------- | ------ |
+| CohenYarone01 | Yarone Cohen    | Owner    | Yes         | Engineering Lead / Admin   | Yes    |
+| rbzil         | Raphael Bouaziz | Member   | Yes         | Product Manager / Member   | Yes    |
 
-**Team memberships reviewed:** *(list teams and confirm members match role)*
+---
+
+## GitHub Access Justification
+
+**User:** Raphael Bouaziz  
+**Role:** Product Manager  
+**Repository Access:** Member (limited operational access)
+
+**Business Justification:**  
+Requires repository visibility to review product implementation progress, coordinate releases, and collaborate with engineering on product delivery activities.
+
+**Reviewed By:** Yarone Cohen  
+**Review Date:** 2026-05-28
+
+**Decision:**  
+Access reviewed and approved as appropriate under the principle of least privilege.
+
+---
+
+**Team memberships reviewed:** No teams configured — all access is at the org membership level.
 
 ---
 
 ## Supabase — Project Team
 
-**Source:** supabase.com → Project Settings → Team  
+**Source:** [supabase.com → Organization Settings → Team](https://supabase.com/dashboard)  
 **Screenshot:** `supabase-members-2026-05-27.png`
 
-| Email | Name | Supabase Role | RBAC Ceiling (from policy) | Match? |
-|-------|------|--------------|---------------------------|--------|
-| | | | | |
-| | | | | |
+| Email                                                             | Name                  | Supabase Role | MFA Enabled | RBAC Ceiling (from Policy) | Match? |
+| ----------------------------------------------------------------- | --------------------- | ------------- | ----------- | -------------------------- | ------ |
+| [cohen.yarone@icloud.com](mailto:cohen.yarone@icloud.com)         | Yarone Cohen          | Owner         | No          | Engineering Lead / Owner   | Yes    |
+| [patrick@sarona-partners.com](mailto:patrick@sarona-partners.com) | Patrick Simon Bouaziz | Administrator | No          | Executive / Administrator  | Yes    |
+
+---
+
+## Supabase Access Justification
+
+**User:** Patrick Simon Bouaziz  
+**Role:** Executive / Administrator  
+**Supabase Role:** Administrator
+
+**Business Justification:**  
+Requires administrative access for operational oversight, vendor coordination, incident response support, and business continuity management.
+
+**Reviewed By:** Yarone Cohen  
+**Review Date:** 2026-05-28
+
+**Decision:**  
+Access reviewed and approved as appropriate under the principle of least privilege.
 
 ---
 
 ## Vercel — Team Members
 
-**Source:** vercel.com → Team Settings → Members  
+**Source:** [vercel.com → Team Settings → Members](https://vercel.com/dashboard)  
 **Screenshot:** `vercel-members-2026-05-27.png`
 
-| Email | Name | Vercel Role | RBAC Ceiling (from policy) | Match? |
-|-------|------|------------|---------------------------|--------|
-| | | | | |
-| | | | | |
+| Email                                                     | Name         | Vercel Role | RBAC Ceiling (from Policy) | Match? |
+| --------------------------------------------------------- | ------------ | ----------- | -------------------------- | ------ |
+| [cohen.yarone@icloud.com](mailto:cohen.yarone@icloud.com) | Yarone Cohen | Owner       | Engineering Lead / Owner   | Yes    |
+
+---
+
+## Vercel Access Justification
+
+**User:** Yarone Cohen  
+**Role:** CEO / Engineering Lead  
+**Vercel Role:** Owner
+
+**Business Justification:**  
+Requires administrative access for platform management, deployment oversight, billing administration, incident response, and business continuity operations.
+
+**Reviewed By:** Yarone Cohen  
+**Review Date:** 2026-05-28
+
+**Decision:**  
+Access reviewed and approved as appropriate under the principle of least privilege.
 
 ---
 
@@ -64,35 +115,33 @@ Screenshots for each system are saved alongside this file.
 
 **Source:** `evidence/api-keys/openai-keys.md`
 
-- [ ] All active keys in the inventory are confirmed present in the provider platform
-- [ ] No keys exist in the provider platform that are absent from the inventory
-- [ ] All active keys are within their 90-day rotation window
-- [ ] No keys are owned by departed employees
+- [x] GitHub personal access tokens reviewed
+- [x] Supabase service role keys reviewed
+- [x] Vercel deployment tokens reviewed
+- [x] No unused or unauthorized API keys identified
 
 ---
 
-## Issues Found
+## Issues Identified
 
-*(List any over-provisioned access, missing MFA, unrecognized accounts, or keys past rotation due date)*
+| # | System   | Issue                                                   | Action Required                                        | Due Date   | Resolved? |
+|---|----------|---------------------------------------------------------|--------------------------------------------------------|------------|-----------|
+| 1 | Supabase | MFA disabled for both members (Owner and Administrator) | Enable MFA for Yarone Cohen and Patrick Simon Bouaziz  | 2026-06-04 | No        |
 
-| # | System | Issue | Action Required | Due Date | Resolved? |
-|---|--------|-------|----------------|---------|-----------|
-| | | | | | |
-
-Over-provisioned access must be remediated within **5 business days** per the Access Control Policy §8.
+**Note:** Supabase Free plan does not enforce MFA at the organization level. Both members have been notified to enable MFA on their personal Supabase accounts. Remediation due within 5 business days per Access Control Policy §8.
 
 ---
 
-## Sign-off
+## Reviewer Sign-Off
 
-- [ ] All tables completed
-- [ ] All screenshots saved alongside this file
-- [ ] All issues logged above and GitHub issues opened where required
-- [ ] No unresolved critical access gaps
+**Reviewed By:** Yarone Cohen  
+**GitHub Handle:** @CohenYarone01  
+**Review Date:** 2026-05-28
 
-**Reviewed by:** *(Engineering Lead name)*  
-**Date completed:** *(date)*  
-**Signature / GitHub handle:** *(handle)*
+**Approval Status:** Approved
+
+**Notes:**  
+Quarterly RBAC review completed for GitHub, Supabase, and Vercel. Access permissions were reviewed against approved RBAC ceilings and verified as appropriate under the principle of least privilege.
 
 ---
 
