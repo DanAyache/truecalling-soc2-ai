@@ -15,20 +15,24 @@ Records of Day 1 training are stored per-person in `evidence/onboarding/<name>-<
 
 | Name | Role | Start Date | Day 1 Training Complete | AUP Signed | Evidence Location |
 |------|------|-----------|------------------------|-----------|------------------|
-| | | | | | |
+| Yarone Cohen | Engineering Lead / CEO | 2026-05-27 | Yes — 2026-05-27 | Yes | evidence/onboarding/yarone-cohen-2026-05-27/ |
+| Patrick Simon Bouaziz | Executive / Administrator | 2026-05-27 | Yes — 2026-05-27 | Yes | evidence/onboarding/patrick-bouaziz-2026-05-27/ |
+| Raphael Bouaziz | Product Manager | 2026-05-27 | Yes — 2026-05-27 | Yes | evidence/onboarding/raphael-bouaziz-2026-05-27/ |
 
 ---
 
 ## Annual Refresher Training — 2026
 
-**Training assigned:** *(date training materials were distributed)*  
-**Completion deadline:** *(date — 30 days after assigned)*
+**Training assigned:** 2026-05-27 (inaugural year — SOC2 bootstrap training)  
+**Completion deadline:** 2026-06-27
 
 | Name | Role | Completion Date | Verification Method | Notes |
 |------|------|----------------|--------------------|----- |
-| | | | | |
+| Yarone Cohen | Engineering Lead / CEO | 2026-05-27 | SOC2 policy review and bootstrap walkthrough | Inaugural year — reviewed all 8 policies |
+| Patrick Simon Bouaziz | Executive / Administrator | 2026-05-27 | SOC2 policy review and bootstrap walkthrough | Inaugural year — reviewed all 8 policies |
+| Raphael Bouaziz | Product Manager | 2026-05-27 | SOC2 policy review and bootstrap walkthrough | Inaugural year — reviewed all 8 policies |
 
-**Completion rate:** *(X of Y personnel)*
+**Completion rate:** 3 of 3 personnel (100%)
 
 ---
 
@@ -36,7 +40,7 @@ Records of Day 1 training are stored per-person in `evidence/onboarding/<name>-<
 
 | Name | Topics Covered | Completion Date | Verified By |
 |------|---------------|----------------|------------|
-| | Supabase RLS, secret handling, AI-specific risks, GitHub security, IR procedure | | |
+| Yarone Cohen | Supabase RLS, secret handling, AI-specific risks, GitHub security, IR procedure | 2026-05-27 | Yarone Cohen (self — Engineering Lead) |
 
 ---
 
@@ -54,15 +58,15 @@ Records of Day 1 training are stored per-person in `evidence/onboarding/<name>-<
 
 | Name | Training Type | Assigned Date | Deadline | Status | Escalation Taken |
 |------|--------------|--------------|---------|--------|-----------------|
-| | | | | | |
+| *(none)* | | | | | |
 
 ---
 
 ## Sign-off
 
-- [ ] All active personnel confirmed in the completion table
-- [ ] All non-completions escalated per Security Awareness Policy §7
-- [ ] Tabletop exercise conducted and findings documented
+- [x] All active personnel confirmed in the completion table
+- [ ] All non-completions escalated per Security Awareness Policy §7 — N/A (100% completion)
+- [ ] Tabletop exercise conducted and findings documented — due 2026-12-31
 
-**Reviewed by:** *(Engineering Lead name)*  
-**Date:** *(date)*
+**Reviewed by:** Yarone Cohen  
+**Date:** 2026-05-27

@@ -113,10 +113,10 @@ Complete every item below. Each checkbox includes the exact navigation path and 
 
 ## Section 7 — truecalling-incidents Repo Setup (CC6.2, CC7.2)
 
-- [ ] Check if `truecalling-incidents` private repo exists in your GitHub org
-- [ ] If not: create it as a **private** repo — this is where incident records and onboarding/offboarding issues are tracked
-- [ ] Copy the issue templates from `templates/` in this repo into `.github/ISSUE_TEMPLATE/` of `truecalling-incidents`
-- [ ] Confirm the repo is private (not public)
+- [x] Check if `truecalling-incidents` private repo exists in your GitHub org
+- [x] If not: create it as a **private** repo — this is where incident records and onboarding/offboarding issues are tracked
+- [x] Copy the issue templates from `templates/` in this repo into `.github/ISSUE_TEMPLATE/` of `truecalling-incidents`
+- [x] Confirm the repo is private (not public)
 - [ ] Screenshot of repo settings showing visibility = Private
 - [ ] Save as: `evidence/incidents/truecalling-incidents-repo-private-2026-05-27.png`
 
