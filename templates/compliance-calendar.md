@@ -91,7 +91,7 @@ These do not run on a schedule but must be completed within the defined SLA when
 | 2 | Enable Supabase MFA — Patrick Simon Bouaziz | 2026-06-04 | Patrick Simon Bouaziz | ⏳ Open |
 | 3 | Add second GitHub org owner | — | Engineering Lead | ⏳ Open |
 | 4 | Complete backup restore test | — | Engineering Lead | ⏳ Blocked — access pending |
-| 5 | Add GITLEAKS_LICENSE to GitHub Secrets | — | Engineering Lead | ⏳ Open |
+| 5 | Add GITLEAKS_LICENSE to GitHub Secrets | 2026-05-31 | Engineering Lead | ✅ Closed — not required; repo hosted under personal account (DanAyache), not a GitHub org. Workflow correctly configured; Gitleaks scan passed 2026-05-31 with no license secret needed. |
 | 6 | Populate API key inventory | — | Engineering Lead | ⏳ Open |
 
 ---
