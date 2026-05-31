@@ -1,0 +1,21 @@
+═══════════════════════════════════════════════
+TrueCalling.ai — SOC2 Security Scan Summary
+═══════════════════════════════════════════════
+Timestamp : 2026-05-31T06:27:49Z
+Repository: DanAyache/truecalling-soc2-ai
+Branch/Ref: main
+Commit SHA: de20ad34e58ae12e572c8ab920af7afcc17cfe05
+Run ID    : 26705355571
+Triggered : schedule
+
+── Scan Results ────────────────────────────────
+Gitleaks (secret scan)   : success
+npm audit (dependencies) : success
+TruffleHog (entropy scan): success
+────────────────────────────────────────────────
+
+SOC2 Controls Covered:
+  CC6.7  Transmission & detection of unauthorized access
+  CC7.1  Vulnerability identification in software components
+  CC8.1  Change management — PR validation
+═══════════════════════════════════════════════

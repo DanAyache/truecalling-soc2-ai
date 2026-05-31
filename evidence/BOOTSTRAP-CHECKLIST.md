@@ -102,12 +102,13 @@ Complete every item below. Each checkbox includes the exact navigation path and 
 
 ## Section 6 — GitHub Actions Security Scan Export (CC6.7)
 
-- [ ] Go to: **Repo → Actions → SOC2 Security Checks workflow**
-- [ ] Click the most recent successful run
-- [ ] Download artifact: `soc2-security-summary-<run-id>`
-- [ ] Save the extracted `security-summary.txt` to: `evidence/security-scans/gitleaks/2026-05/security-summary-2026-05-27.txt`
-- [ ] If any High/Critical findings exist: open a GitHub issue for each and note the issue number in `evidence/security-scans/gitleaks/2026-05/findings-2026-05-27.md`
-- [ ] Commit: `chore: export security scan evidence 2026-05-27`
+- [x] Go to: **Repo → Actions → SOC2 Security Checks workflow**
+- [x] Click the most recent successful run
+- [x] Download artifact: `soc2-security-summary-<run-id>`
+- [x] Save the extracted `security-summary.txt` to: `evidence/security-scans/gitleaks/2026-05/security-summary-2026-05-31.txt`
+- [x] No High/Critical findings — all 3 scans passed (Gitleaks, TruffleHog, npm audit)
+- [x] SARIF artifact saved: `evidence/security-scans/gitleaks/2026-05/gitleaks-results.sarif.zip`
+- [x] Code scanning screenshot saved: `evidence/security-scans/gitleaks/2026-05/security-scan-summary-2026-05-31.png`
 
 ---
 
