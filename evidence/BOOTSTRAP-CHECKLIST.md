@@ -118,8 +118,8 @@ Complete every item below. Each checkbox includes the exact navigation path and 
 - [x] If not: create it as a **private** repo — this is where incident records and onboarding/offboarding issues are tracked
 - [x] Copy the issue templates from `templates/` in this repo into `.github/ISSUE_TEMPLATE/` of `truecalling-incidents`
 - [x] Confirm the repo is private (not public)
-- [ ] Screenshot of repo settings showing visibility = Private
-- [ ] Save as: `evidence/incidents/truecalling-incidents-repo-private-2026-05-27.png`
+- [x] Screenshot of repo settings showing visibility = Private
+- [x] Saved as: `evidence/incidents/truecalling-incidents-repo-private-2026-05-31.png`
 
 ---
 
