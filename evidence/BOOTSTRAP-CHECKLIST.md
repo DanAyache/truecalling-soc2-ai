@@ -2,7 +2,8 @@
 
 **Purpose:** First-round evidence collection to start the SOC 2 Type II observation period.  
 **Date Started:** 2026-05-27  
-**Owner:** Engineering Lead (stephane@truecalling.ai)  
+**Owner:** Engineering Lead (engineering-lead@truecalling.ai)  
+**SOC 2 Program Lead:** Stéphane (stephane@truecalling.ai)  
 **Target Completion:** Within 7 days of this date
 
 Complete every item below. Each checkbox includes the exact navigation path and the file name to save the artifact under. Commit the evidence folder after completing each section.
