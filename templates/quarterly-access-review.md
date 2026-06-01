@@ -150,6 +150,7 @@ Screenshots for each system must be saved alongside this file.
 - [ ] All over-provisioned access has a remediation due date assigned
 - [ ] All API keys reviewed and rotation dates confirmed
 - [ ] Screenshots saved alongside this file
+- [ ] Compensating control acknowledgement included per the [RBAC self-review compensating control](../evidence/access-control/compensating-controls/rbac-self-review-compensating-control.md) §6.1 (required when the reviewer is the Engineering Lead reviewing their own access)
 
 **Reviewed By:** `<Engineering Lead name>`  
 **GitHub Handle:** `<@handle>`  
@@ -157,6 +158,16 @@ Screenshots for each system must be saved alongside this file.
 **Approval Status:** Approved / Approved with findings
 
 **Notes:**
+
+### Compensating Control Acknowledgement
+
+> **Required when the reviewer is the Engineering Lead reviewing their own access.** Source: [RBAC self-review compensating control](../evidence/access-control/compensating-controls/rbac-self-review-compensating-control.md) §6.1.
+
+Include the following acknowledgement, or substantially equivalent wording that addresses the same points:
+
+*Compensating control acknowledged: this review is performed by the Engineering Lead under the RBAC self-review compensating control documented at `evidence/access-control/compensating-controls/rbac-self-review-compensating-control.md`. No re-evaluation trigger has been observed since the prior review.*
+
+**Trigger-fired alternative:** If any re-evaluation trigger from §5 of the compensating control document was observed during the quarter, replace the verbatim statement above with a description of which trigger fired and what action was taken (establish a second-reviewer model, or document why the trigger does not require that change).
 
 ---
 
