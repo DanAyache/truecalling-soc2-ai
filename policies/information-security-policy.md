@@ -32,12 +32,13 @@ This ISP applies regardless of location, device, or network from which TrueCalli
 
 | Role | Responsibilities |
 |------|-----------------|
-| **Engineering Lead (Policy Owner)** | Owns this ISP and all subordinate policies. Approves exceptions. Chairs the annual policy review. Maintains the SOC 2 evidence program and serves as the primary point of contact for auditors. Acts as Incident Commander for P1/P2 incidents. |
+| **Engineering Lead (Policy Owner)** | Owns this ISP and all subordinate policies. Approves exceptions per §5.3. Final approver of annual policy reviews per §6. Acts as Incident Commander for P1/P2 incidents. Owns operational controls including code review approval (via CODEOWNERS) and platform-level access management on GitHub, Supabase, and Vercel. |
+| **SOC 2 Program Lead** | Owns the SOC 2 readiness program. Maintains the SOC 2 evidence program and the [Compliance Calendar](../templates/compliance-calendar.md). Serves as the primary point of contact for SOC 2 auditors and prospective auditors. Coordinates the annual policy review cycle and tracks completion. Reviews evidence artifacts committed by the Engineering Lead and Authorized Personnel and flags discrepancies between committed evidence and policy ceilings before quarterly review records are finalized. |
 | **Authorized Personnel** | Personnel formally delegated specific security responsibilities by the Engineering Lead. Implement and enforce controls defined in subordinate policies. Lead delegated control areas (e.g., backup verification, access reviews). Serve as Incident Commanders for P3/P4 incidents when designated. |
 | **All Engineers and Contractors** | Comply with all policies. Report suspected security incidents per the [Incident Response Policy](incident-response-policy.md). Complete annual security awareness training. Acknowledge the [Acceptable Use Policy](acceptable-use-policy.md). |
 | **Vendors and Third Parties** | Meet the security requirements defined in the [Vendor Management Policy](vendor-management-policy.md). Provide attestation or audit reports as requested. |
 
-The Engineering Lead is the accountable party for the overall security program. Operational responsibilities may be delegated but accountability cannot.
+The Engineering Lead is the accountable party for the overall security program. The SOC 2 Program Lead is accountable for the SOC 2 readiness program but reports operational matters to the Engineering Lead. Operational responsibilities may be delegated within each role; accountability cannot.
 
 ---
 
@@ -94,7 +95,7 @@ Compliance with this ISP and all subordinate policies is **mandatory** for all p
 
 ### 5.2 Monitoring
 
-The Engineering Lead monitors compliance through:
+The Engineering Lead, with operational support from the SOC 2 Program Lead, monitors compliance through:
 
 - Quarterly access reviews ([Access Control Policy](access-control-policy.md) §8)
 - Quarterly backup verification tests ([Backup Policy](backup-policy.md))
@@ -139,7 +140,7 @@ The next scheduled review date is recorded in the [Compliance Calendar](../templ
 
 ### 6.2 Review Procedure
 
-At each review the Engineering Lead must:
+At each review the Engineering Lead, coordinated by the SOC 2 Program Lead, must:
 
 1. Confirm that all subordinate policies are still in effect, current, and consistent with this ISP
 2. Reconcile any conflicts surfaced since the last review
