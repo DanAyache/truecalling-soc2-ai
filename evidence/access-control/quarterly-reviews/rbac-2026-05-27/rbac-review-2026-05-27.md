@@ -115,10 +115,27 @@ Access reviewed and approved as appropriate under the principle of least privile
 
 **Source:** `evidence/api-keys/openai-keys.md`
 
-- [x] GitHub personal access tokens reviewed
-- [x] Supabase service role keys reviewed
-- [x] Vercel deployment tokens reviewed
-- [x] No unused or unauthorized API keys identified
+> ### ⚠️ Correction (appended 2026-06-02) — Finding F-18 (audit C-3)
+>
+> The four checkboxes below, as originally signed on 2026-05-28, **overstated** the work performed. They asserted that provider API keys had been reviewed and that "no unused or unauthorized API keys" existed. In fact, as of this review date the **API Key Inventory ([openai-keys.md](../../../api-keys/openai-keys.md)) had not enumerated any provider** — so no key population existed to review against. The attestation was therefore unsupported.
+>
+> This correction is appended (rather than the original being deleted) to preserve the integrity of the dated evidence trail. The original checkboxes are struck through and replaced with the accurate status below. Tracked as **F-18** in the [Findings & Remediation Register](../../../../findings/findings-remediation-register.md).
+>
+> **Corrected status (2026-06-02):**
+>
+> - [ ] ~~GitHub personal access tokens reviewed~~ → **Not performed.** Pending F-14 enumeration.
+> - [ ] ~~Supabase service role keys reviewed~~ → **Not performed.** Pending F-14 enumeration.
+> - [ ] ~~Vercel deployment tokens reviewed~~ → **Not performed.** Pending F-14 enumeration.
+> - [ ] ~~No unused or unauthorized API keys identified~~ → **Cannot be asserted** until the inventory is populated.
+>
+> **Resolution path:** The API key review will be performed against the populated inventory when **F-14** completes (target 2026-06-30). At that point this section will be re-signed with an accurate attestation, or carried into the next quarterly review (2026-08-27), whichever comes first.
+
+*Original (uncorrected) checkboxes — retained for audit trail, superseded by the correction above:*
+
+- [x] ~~GitHub personal access tokens reviewed~~
+- [x] ~~Supabase service role keys reviewed~~
+- [x] ~~Vercel deployment tokens reviewed~~
+- [x] ~~No unused or unauthorized API keys identified~~
 
 ---
 

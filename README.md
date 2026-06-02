@@ -14,15 +14,18 @@ Controls are currently under active implementation, remediation, and evidence co
 
 ```
 truecalling-soc2-ai/
-├── policies/               # 8 security policies (effective 2026-05-27)
+├── policies/               # Security policies (effective 2026-05-27)
 ├── procedures/             # Operational procedures for onboarding, offboarding, evidence collection
+├── findings/               # Findings & Remediation Register (single source of truth for audit findings)
 ├── evidence/               # Collected audit evidence, organized by category
 │   ├── access-control/     # RBAC reviews, MFA enforcement screenshots
-│   ├── api-keys/           # Named API key inventory
+│   ├── api-keys/           # API key inventory (F-14), collection worksheet, request work-paper
+│   ├── azure/              # Azure control coverage gap analysis (F-16) + Azure evidence
 │   ├── backups/            # Backup restore test logs
 │   ├── incidents/          # Post-mortems and incident cross-references
 │   ├── onboarding/         # Per-person onboarding evidence packages
 │   ├── offboarding/        # Per-person offboarding evidence packages
+│   ├── risk-register/      # Risk register
 │   ├── security-awareness/ # Annual training completion logs
 │   ├── security-scans/     # GitHub Actions scan artifacts (Gitleaks, TruffleHog, npm audit)
 │   ├── vendor/             # Annual third-party vendor review records
@@ -63,6 +66,7 @@ truecalling-soc2-ai/
 | CC8.1 — Change management | GitHub PR history, `.github/workflows/security.yml` |
 | CC9.2 — Security awareness | `evidence/security-awareness/` |
 | A1.2 — Backup & recovery | `evidence/backups/verification-logs/` |
+| CC3/CC4 — Findings & remediation tracking | `findings/findings-remediation-register.md` |
 
 ---
 

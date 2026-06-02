@@ -1,11 +1,15 @@
 # API Key Inventory
 
 **Owner:** Engineering Lead
-**Last Updated:** 2026-06-01
+**Last Updated:** 2026-06-02
 **Review Cycle:** Quarterly (aligned with access reviews)
+**Finding ID:** F-14 (API Key Inventory completion) — see [Findings & Remediation Register](../../findings/findings-remediation-register.md). *Note: previously referenced as "F-04" in Risk Register R-013; consolidated under F-14.*
 **Related Policy:** [Secrets Management Policy](../../policies/secrets-management-policy.md) §4
 **Related Risk:** [R-013](../risk-register/risk-register-2026.md) (Twilio credential compromise — extends to all provider credentials in scope)
+**Related Work-Paper:** [api-key-inventory-request.xlsx](api-key-inventory-request.xlsx) (client enumeration request) · [api-key-inventory-worksheet.md](api-key-inventory-worksheet.md) (collection worksheet)
 **SOC 2 Criteria:** CC6.1, CC6.7
+
+> **Scope correction (2026-06-02):** Production is migrating to **Microsoft Azure** (primary hosting platform). This inventory's scope is therefore **expanded** to include **Azure Key Vault secrets**, **Azure RBAC / Entra ID identities** (service principals, managed identities, user-assigned identities), and any **Azure DevOps** PATs/service connections, in addition to the original seven providers. See the [Azure Control Coverage Gap Analysis](../azure/azure-control-coverage-gap-analysis.md). An inventory that omitted Azure would be incomplete by definition, since the project's secrets now reside in Azure Key Vault.
 
 ---
 
@@ -31,7 +35,7 @@ Progress is tracked in the per-provider table below and in Risk Register entry [
 
 ### Per-Provider Status
 
-| Provider | Status | Owner Responsible | Target Completion |
+| Provider / Component | Status | Owner Responsible | Target Completion |
 |----------|--------|------------------|-------------------|
 | OpenAI | ⏳ Inventory not yet completed | Engineering Lead | 2026-06-30 |
 | Anthropic | ⏳ Inventory not yet completed | Engineering Lead | 2026-06-30 |
@@ -40,6 +44,9 @@ Progress is tracked in the per-provider table below and in Risk Register entry [
 | GitHub | ⏳ Inventory not yet completed | Engineering Lead | 2026-06-30 |
 | Twilio (covers voice / SMS / WhatsApp) | ⏳ Inventory not yet completed | Engineering Lead | 2026-06-30 |
 | FullEnrich | ⏳ Inventory not yet completed | Engineering Lead | 2026-06-30 |
+| **Azure Key Vault** (secrets/keys/certs) | ⏳ Inventory not yet completed | Engineering Lead | 2026-06-30 |
+| **Azure RBAC / Entra ID identities** (service principals, managed identities) | ⏳ Inventory not yet completed | Engineering Lead | 2026-06-30 |
+| **Azure DevOps** (PATs, service connections) — *if used for source/CI* | ⏳ Scope to confirm | Engineering Lead | 2026-06-30 |
 
 A provider's status changes to ✅ Complete only after its keys have been verified at the provider's UI and the corresponding rows added to §2 Active Keys.
 
@@ -118,6 +125,32 @@ The following providers are confirmed to have at least one active credential iss
 - **Source for enumeration:** app.fullenrich.com → Settings → API
 - **Scope:** Active API keys for contact data enrichment
 
+### 3.8 Azure Key Vault
+
+- **Status:** Inventory not yet completed
+- **Owner responsible:** Engineering Lead
+- **Target completion:** 2026-06-30
+- **Source for enumeration:** Azure Portal → Key Vaults → *(each vault)* → **Objects → Secrets / Keys / Certificates** (also `az keyvault secret list --vault-name <vault>`)
+- **Scope:** Every secret, key, and certificate object across **all** vaults in **all** in-scope subscriptions/resource groups (production and staging). Record object name, vault, enabled state, created/updated, expiry, and the rotation policy if set. **Values are never recorded — metadata only.**
+- **Notes:** Confirm **soft-delete** and **purge protection** are enabled on each vault (captured in the [Azure Gap Analysis](../azure/azure-control-coverage-gap-analysis.md), CC6.7). Each object's **expiration date** doubles as its rotation-due date for §8 review.
+
+### 3.9 Azure RBAC / Entra ID Identities
+
+- **Status:** Inventory not yet completed
+- **Owner responsible:** Engineering Lead
+- **Target completion:** 2026-06-30
+- **Sources for enumeration:** (a) Entra ID → **App registrations** (service principals + their client secrets/certificates and expiry); (b) Entra ID → **Managed Identities** (system- and user-assigned); (c) Subscription/Resource Group → **Access control (IAM) → Role assignments** (who/what holds which role)
+- **Scope:** All non-human credentials that can reach Azure resources — service principal secrets/certs (with expiry), federated credentials (OIDC), and the role assignments granting them access. These are credentials in the SOC 2 CC6.1/CC6.7 sense even though they are not "API keys" in the SaaS sense.
+- **Notes:** Service principal client secrets have expiry dates — capture them so expiring credentials surface in the §8 quarterly review. Prefer **federated (OIDC) credentials or managed identities over long-lived client secrets** (recommendation tracked in the Azure Gap Analysis).
+
+### 3.10 Azure DevOps *(confirm applicability)*
+
+- **Status:** Scope to confirm — the request workbook lists "GitHub / Azure DevOps." Confirm whether Azure DevOps is used for source/CI; if not, mark **N/A** with a one-line note and close this row.
+- **Owner responsible:** Engineering Lead
+- **Target completion:** 2026-06-30
+- **Sources for enumeration:** Azure DevOps → **User settings → Personal access tokens**; Project → **Service connections**; Pipelines → **Library → secret variables/variable groups**
+- **Scope:** Active PATs (with scope + expiry), service connections, and pipeline secret variables.
+
 ---
 
 ## 4. Revoked Keys
@@ -159,7 +192,7 @@ The following providers are confirmed to have at least one active credential iss
 
 At each quarterly access review, the Engineering Lead:
 
-1. Pulls the current key list from each provider (OpenAI, Anthropic, Supabase, Vercel, GitHub, Twilio, FullEnrich)
+1. Pulls the current key list from each provider (OpenAI, Anthropic, Supabase, Vercel, GitHub, Twilio, FullEnrich, **Azure Key Vault, Azure RBAC/Entra ID identities**, and **Azure DevOps** if in use)
 2. Verifies every active key in this log appears in the provider and vice versa
 3. Flags keys past their rotation due date — treat as P2 incident
 4. Documents the review with a commit: `chore: quarterly api key review <YYYY-MM-DD>`
@@ -172,6 +205,23 @@ Until full enumeration is complete (target: 2026-06-30):
 2. As each provider is fully enumerated, its rows are added to §2 Active Keys
 3. Once all providers reach ✅ Complete, §1 is replaced with a completion attestation noting the date and the total number of keys inventoried
 4. Until then, this file remains an evidence gap acknowledgement, not a completed control
+
+### 9.1 Remaining Steps to Close F-14 (owner action — requires provider/portal access)
+
+This document is now **fully scoped and structured**; the remaining work is data collection that only the Engineering Lead can perform (it requires authenticated access to each provider's UI). No key data has been fabricated.
+
+| # | Step | Where it lands | Done? |
+|---|------|----------------|-------|
+| 1 | Enumerate each provider/component in §3 (incl. Azure Key Vault, Entra ID identities) using the documented sources | §2 Active Keys + worksheet | ☐ |
+| 2 | For each key/secret record: name, owner, created, rotation-due (or expiry), purpose, status — **never the value** | §2 | ☐ |
+| 3 | Capture the screenshots listed in the [request workbook](api-key-inventory-request.xlsx) (values hidden) | `evidence/api-keys/screenshots/` | ☐ |
+| 4 | Confirm or mark **N/A** the Azure DevOps row (§3.10) | §1 table | ☐ |
+| 5 | Reconcile the 2026-05-27 RBAC review's API-key attestation against the populated inventory | [RBAC review correction](../access-control/quarterly-reviews/rbac-2026-05-27/rbac-review-2026-05-27.md) | ☐ |
+| 6 | Flip each §1 row to ✅ Complete; replace the §1 "incomplete" statement with a dated completion attestation + total key count | §1 | ☐ |
+| 7 | Update Risk Register R-013 to reference **F-14** (not F-04) and set status accordingly | [risk-register-2026.md](../risk-register/risk-register-2026.md) | ☐ |
+| 8 | Commit: `chore: complete F-14 api key inventory <YYYY-MM-DD>` | git history | ☐ |
+
+**Status as of 2026-06-02:** F-14 is **In Progress — scoped & structured, awaiting enumeration.** Target completion **2026-06-30**.
 
 ---
 

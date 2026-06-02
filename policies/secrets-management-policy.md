@@ -1,11 +1,13 @@
 # Secrets Management Policy
 
 **Organization:** TrueCalling.ai  
-**Version:** 1.0  
-**Effective Date:** 2026-05-27  
+**Version:** 1.1  
+**Effective Date:** 2026-05-27 (v1.0); v1.1 effective 2026-06-02  
+**Last Updated:** 2026-06-02  
 **Owner:** Engineering Lead  
 **Review Cycle:** Annual  
 **Related Policies:** Access Control Policy, Change Management Policy, Incident Response Policy  
+**Related:** [Azure Control Coverage Gap Analysis](../evidence/azure/azure-control-coverage-gap-analysis.md)  
 **SOC 2 Criteria:** CC6.1, CC6.7
 
 ---
@@ -31,7 +33,8 @@ All secrets used by TrueCalling.ai systems and personnel, including:
 
 | Location | Approved For | Not Approved For |
 |----------|-------------|-----------------|
-| **Vercel Environment Variables** | Production and preview runtime secrets (Supabase keys, OpenAI keys, webhook secrets) | Local development secrets |
+| **Azure Key Vault** (RBAC access; soft-delete + purge protection; diagnostic logging enabled) | **Primary production secret store** as production migrates to Azure — Supabase keys, provider API keys, webhook secrets, certificates. Apps read via **managed identity**, not copied into app settings | Local development secrets; storing the vault's own access secrets in code |
+| **Vercel Environment Variables** *(being deprecated as production moves to Azure — maintain only while Vercel hosts production)* | Production and preview runtime secrets during the dual-running migration window | Local development secrets; new production secrets once Azure is the host of record |
 | **Company Password Manager** (1Password / Bitwarden) | Shared team credentials, recovery credentials, secondary backup of env var values | Individual API keys that should be per-person |
 | **GitHub Actions Secrets** | CI/CD pipeline secrets (deployment tokens, test API keys) | Production service role keys |
 | **Local `.env` file** (never committed) | Local development only — must be in `.gitignore` | Anything that touches production data |
@@ -169,6 +172,15 @@ The presence of these entries is verified during PR review for any new repositor
 ## 10. Violations
 
 Committing a secret to a repository — even privately, even if quickly deleted — constitutes a policy violation and triggers immediate incident response. The Engineering Lead determines whether customer notification is required based on what data the secret could have accessed and whether any unauthorized access occurred.
+
+---
+
+## 11. Change Log
+
+| Version | Date | Change |
+|---------|------|--------|
+| 1.0 | 2026-05-27 | Initial policy |
+| 1.1 | 2026-06-02 | Added **Azure Key Vault** as the primary approved production secret store (Azure migration, finding F-16); marked Vercel environment variables as being deprecated for new production secrets. Apps to read secrets via managed identity. |
 
 ---
 
