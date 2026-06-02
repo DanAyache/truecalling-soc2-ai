@@ -1,10 +1,14 @@
 # TrueCalling.ai — SOC 2 Policy & Evidence Repository
 
-This repository is the authoritative source for TrueCalling.ai's SOC 2 Type II compliance program. It contains all security policies, operational procedures, reusable templates, and collected audit evidence.
+This repository is the authoritative source for TrueCalling.ai's SOC 2 compliance program.
+The current engagement is a **SOC 2 Type I** examination (design + implementation, as of
+2026-07-31 target); see [SOC2-ENGAGEMENT-SCOPE.md](SOC2-ENGAGEMENT-SCOPE.md). A Type II
+examination is a deferred second milestone. It contains all security policies, operational
+procedures, reusable templates, and collected audit evidence.
 
-**Observation period initiated:** 2026-05-27  
-Controls are currently under active implementation, remediation, and evidence collection as part of the SOC 2 readiness program.  
-**Target audit window:** Q1 2027 (minimum 6-month observation period)  
+**Engagement type:** SOC 2 Type I (point-in-time)  
+**As-of date (target):** 2026-07-31 — contingent on F-14/F-16/F-19/F-20 closure  
+**Type II:** deferred until after Azure cut-over (roadmap in SOC2-ENGAGEMENT-SCOPE.md §4)  
 **Repository visibility:** Private  
 **Evidence integrity:** All artifacts are committed to git — timestamps are verifiable via commit history.
 

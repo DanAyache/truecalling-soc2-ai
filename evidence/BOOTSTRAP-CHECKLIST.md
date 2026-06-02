@@ -6,6 +6,10 @@
 **SOC 2 Program Lead:** Stéphane (stephane@truecalling.ai)  
 **Target Completion:** Within 7 days of this date
 
+> **Scope note (F-01):** This checklist's "Type II observation period" language refers to the
+> *deferred* Type II milestone. The current engagement is **SOC 2 Type I** as of 2026-07-31
+> (target). See SOC2-ENGAGEMENT-SCOPE.md. Do not interpret 2026-05-27 as a started Type II period.
+
 Complete every item below. Each checkbox includes the exact navigation path and the file name to save the artifact under. Commit the evidence folder after completing each section.
 
 ---
