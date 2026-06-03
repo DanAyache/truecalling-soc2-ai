@@ -4,7 +4,7 @@ This repository is the authoritative source for TrueCalling.ai's SOC 2 complianc
 The current engagement is a **SOC 2 Type I** examination (design + implementation, as of
 2026-07-31 target); see [SOC2-ENGAGEMENT-SCOPE.md](SOC2-ENGAGEMENT-SCOPE.md). A Type II
 examination is a deferred second milestone. It contains all security policies, operational
-procedures, reusable templates, and collected audit evidence.
+procedures, reusable templates, and audit evidence (collection in progress).
 
 **Engagement type:** SOC 2 Type I (point-in-time)  
 **As-of date (target):** 2026-07-31 — contingent on F-14/F-16/F-19/F-20 closure  
@@ -63,9 +63,9 @@ truecalling-soc2-ai/
 | SOC 2 Criteria | Evidence Location |
 |----------------|------------------|
 | CC6.1 — Logical access controls | `evidence/access-control/` |
-| CC6.2 — Provisioning / deprovisioning | `evidence/onboarding/`, `evidence/offboarding/` |
+| CC6.2 — Provisioning / deprovisioning | `evidence/onboarding/`, `evidence/offboarding/` *(planned — not yet collected, F-07)* |
 | CC6.7 — Secret & credential protection | `evidence/security-scans/gitleaks/`, `evidence/api-keys/` |
-| CC7.1 — Vulnerability identification | `evidence/security-scans/npm-audit/` |
+| CC7.1 — Vulnerability identification | `evidence/security-scans/dependabot/`; `evidence/security-scans/npm-audit/` *(CI runs; outputs not yet committed)* |
 | CC7.2 — Monitoring | GitHub Actions run history, `evidence/incidents/` |
 | CC8.1 — Change management | GitHub PR history, `.github/workflows/security.yml` |
 | CC9.2 — Security awareness | `evidence/security-awareness/` |

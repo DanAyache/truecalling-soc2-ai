@@ -13,6 +13,8 @@
 
 Records of Day 1 training are stored per-person in `evidence/onboarding/<name>-<date>/`. This section tracks completion status for audit cross-reference.
 
+> **Correction (2026-06-03 — AUD-OBS-7 / F-28):** The per-person onboarding folders referenced below have **not yet been populated** — `evidence/onboarding/` currently contains only `.gitkeep`. The "Day 1 Training Complete" and "AUP Signed" entries record **asserted** completion during the 2026-05-27 bootstrap and are **not yet evidenced**. Collection of the Day-1 records and signed AUPs is tracked under **F-07**. Until those artifacts are committed, treat the "Evidence Location" column as a **target path**, not collected evidence. No records were created or backdated.
+
 | Name | Role | Start Date | Day 1 Training Complete | AUP Signed | Evidence Location |
 |------|------|-----------|------------------------|-----------|------------------|
 | Yarone Cohen | Engineering Lead / CEO | 2026-05-27 | Yes — 2026-05-27 | Yes | evidence/onboarding/yarone-cohen-2026-05-27/ |

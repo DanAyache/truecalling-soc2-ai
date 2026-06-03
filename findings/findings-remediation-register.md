@@ -48,6 +48,7 @@ Severity: **Critical / High / Medium / Low** (per the 2026-06-02 audit).
 | **F-16** | Azure control coverage gap — control set documents Vercel/Supabase, not the Azure production target | Critical | CC6.1/6.6/6.7, CC7.x, CC8.1, A1.2 | R-016 | Eng Lead | 2026-07-15 | **In Progress** (gap analysis done 2026-06-02; artifact edits queued) | [azure-control-coverage-gap-analysis.md](../evidence/azure/azure-control-coverage-gap-analysis.md) |
 | **F-17** | No consolidated findings/remediation register; inconsistent finding IDs | Critical | CC3.x, CC4.x | — | Eng Lead | 2026-06-02 | **Closed** (this document) | this register |
 | **F-18** | Evidence contradiction — RBAC review attests an API-key review the inventory says never occurred (audit C-3) | Critical | CC6.1 (evidence integrity) | R-013 | Eng Lead | 2026-06-02 | **Closed** (correction appended) | [rbac-review-2026-05-27.md](../evidence/access-control/quarterly-reviews/rbac-2026-05-27/rbac-review-2026-05-27.md) §Correction |
+| **F-28** | Evidence contradiction (AUD-OBS-7) — security-awareness log asserts Day-1 onboarding/AUP records at `evidence/onboarding/<name>/` paths that contain only `.gitkeep` | High | CC9.2 (evidence integrity) | R-015 | Eng Lead | 2026-06-03 | **Closed** (correction appended; underlying records tracked under F-07) | [annual-2026.md](../evidence/security-awareness/annual-2026.md) §Day 1 Onboarding Training |
 | **R-002 / F-19** | Supabase MFA disabled for both members (Owner + Administrator) | High | CC6.1 | R-002 | Eng Lead | 2026-06-04 | **Evidence Pending** (record + collection steps ready; awaiting members to enable MFA + screenshot) | [supabase-mfa-remediation-2026-06.md](../evidence/access-control/mfa-enforcement/supabase-mfa-remediation-2026-06.md) |
 
 ---
@@ -66,7 +67,7 @@ Severity: **Critical / High / Medium / Low** (per the 2026-06-02 audit).
 | **F-21** | 14,857-file `claude-code-plugins-plus-skills` tree vendored into compliance repo (audit M-1) | Medium | CC8.1 | — | Eng Lead | 2026-06-30 | Open |
 | **F-22** | Developer-local `.claude/settings.local.json` committed (audit M-2) | Low | CC8.1 | — | Eng Lead | 2026-06-30 | Open |
 | **F-23** | No data classification / retention-erasure schedule (audit M-4) | Medium | CC3.2, C-series | R-008 | Eng Lead | 2026-08-31 | Open |
-| **F-24** | README overstates maturity vs collected evidence (audit M-6) | Low | CC2.x | — | Eng Lead | 2026-06-30 | Open |
+| **F-24** | README overstates maturity vs collected evidence (audit M-6) | Low | CC2.x | — | Eng Lead | 2026-06-30 | **Closed** (2026-06-03 — README Evidence Quick Reference corrected: empty onboarding/offboarding + npm-audit folders marked not-yet-collected; "collected audit evidence" softened) |
 
 ---
 
