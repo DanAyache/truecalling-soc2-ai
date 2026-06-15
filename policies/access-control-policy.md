@@ -11,7 +11,7 @@
 
 ## 1. Purpose
 
-This policy establishes controls for granting, managing, and revoking access to TrueCalling.ai systems to protect customer data and meet SOC 2 Type II requirements.
+This policy establishes controls for granting, managing, and revoking access to TrueCalling.ai systems to protect customer data and meet the SOC 2 Trust Services Criteria (Type I engagement; Type II deferred).
 
 ## 2. Scope
 

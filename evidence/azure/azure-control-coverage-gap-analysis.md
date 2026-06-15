@@ -26,14 +26,14 @@ These must be confirmed by the Engineering Lead; the gap ratings below assume th
 
 | # | Question | Answer (fill in) |
 |---|----------|------------------|
-| A | Is production **live** on Azure today, still on Vercel, or split? | ☐ |
-| B | Which Azure compute hosts the app (App Service / Container Apps / AKS / Functions)? | ☐ |
-| C | Does Supabase remain the database, or is data moving to Azure (PostgreSQL Flexible Server)? | ☐ |
-| D | Is identity Entra ID (Azure AD), and is Conditional Access available on the tenant? | ☐ |
-| E | Azure region(s) in use (EU residency relevant for confidentiality/availability)? | ☐ |
-| F | Is source/CI staying on GitHub, or moving to Azure DevOps? | ☐ |
+| A | Is production **live** on Azure today, still on Vercel, or split? | Still Vercel — no Azure production resources. |
+| B | Which Azure compute hosts the app (App Service / Container Apps / AKS / Functions)? | None yet. |
+| C | Does Supabase remain the database, or is data moving to Azure (PostgreSQL Flexible Server)? | Supabase retained. |
+| D | Is identity Entra ID (Azure AD), and is Conditional Access available on the tenant? | No — Entra ID is future-state. |
+| E | Azure region(s) in use (EU residency relevant for confidentiality/availability)? | N/A — none provisioned. |
+| F | Is source/CI staying on GitHub, or moving to Azure DevOps? | GitHub (staying). |
 
-Until A–F are answered, treat **both** Vercel-era and Azure controls as in scope (dual-running period).
+A–F answered (2026-06-14): Azure is **not in production** and is **out of the current Type I boundary** (deferred — F-16 / R-016); the legacy controls (Vercel / Supabase / GitHub / Google Workspace) are in scope. The Azure gap matrix below stands as the **future-state** baseline required at cut-over.
 
 ---
 

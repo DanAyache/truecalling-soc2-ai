@@ -52,6 +52,34 @@ Access reviewed and approved as appropriate under the principle of least privile
 
 **Team memberships reviewed:** No teams configured — all access is at the org membership level.
 
+> ### ⚠️ Correction (appended 2026-06-14) — Finding F-29
+>
+> The GitHub "MFA Enabled: Yes" entries in the table above are not corroborated by the authoritative
+> source. The committed GitHub organization members export (`export-Truecalling-ai-GitHub-2026-05-27.csv`,
+> container root) records `tfa_enabled=false` / `tfa_level=disabled` for both CohenYarone01 and rbzil on
+> the same review date (2026-05-27). The committed `github-mfa-enabled-2026-05-27.png` shows a GitHub
+> two-factor settings page with an authenticator configured, but the capture is unattributed — GitHub's
+> security-settings page does not display the account identifier, so it cannot be tied to either member.
+>
+> Because the export is a point-in-time snapshot that may be stale, and the only "enabled" artifact is
+> unattributed, the correct status is unverified — not "disabled" and not "enabled": GitHub MFA for both
+> members is not established by any current, attributed, authoritative artifact.
+>
+> Corrected status (2026-06-14): GitHub MFA = unverified, pending re-evidence with an attributed current
+> export or per-member screenshot (the org "Require two-factor authentication" setting is preferred).
+> Tracked as F-29. Original table rows retained above unaltered to preserve the dated evidence trail.
+
+> ### ⚠️ Correction (appended 2026-06-14) — Access-review population completeness
+>
+> The GitHub members table above enumerated the two accounts from the 2026-05-27 export (CohenYarone01,
+> rbzil) and did not include DanAyache, which is the repository owner / primary administrator. An access
+> review should cover all privileged identities.
+>
+> Action: include DanAyache in the next access review's population. Its MFA state, least-privilege
+> determination, and the repository's organizational ownership model are not asserted here and are to be
+> established from an authoritative source (e.g., a current GitHub members/security export) at that review.
+> Original table retained above unaltered.
+
 ---
 
 ## Supabase — Project Team

@@ -37,3 +37,6 @@ out/
 *.log
 tmp/
 .tmp/
+
+# ─── Developer-local (not compliance evidence — finding F-22) ────────────────
+.claude/settings.local.json

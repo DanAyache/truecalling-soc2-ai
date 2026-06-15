@@ -11,7 +11,7 @@
 
 ## 1. Purpose
 
-This policy defines how TrueCalling.ai identifies, contains, investigates, and recovers from security incidents to minimize harm to customers, protect AI model integrity, and meet SOC 2 Type II requirements.
+This policy defines how TrueCalling.ai identifies, contains, investigates, and recovers from security incidents to minimize harm to customers, protect AI model integrity, and meet the SOC 2 Trust Services Criteria (Type I engagement; Type II deferred).
 
 ## 2. Scope
 

@@ -7,10 +7,10 @@ examination is a deferred second milestone. It contains all security policies, o
 procedures, reusable templates, and audit evidence (collection in progress).
 
 **Engagement type:** SOC 2 Type I (point-in-time)  
-**As-of date (target):** 2026-07-31 — contingent on F-14/F-16/F-19/F-20 closure  
+**As-of date (target):** 2026-07-31 — contingent on F-14/F-19/F-20 closure (Azure / F-16 deferred — out of Type I boundary)  
 **Type II:** deferred until after Azure cut-over (roadmap in SOC2-ENGAGEMENT-SCOPE.md §4)  
 **Repository visibility:** Private  
-**Evidence integrity:** All artifacts are committed to git — timestamps are verifiable via commit history.
+**Evidence integrity:** Committed artifacts are timestamped via git history. Some collected evidence remains pending commit; the Findings & Remediation Register is the source of truth for collected-vs-committed status.
 
 ---
 
@@ -110,7 +110,7 @@ Access may be granted as a read-only GitHub collaborator scoped to this reposito
 
 Evidence is organized so each SOC 2 Trust Service Criteria maps directly to a folder in `evidence/`. Start with the Evidence Quick Reference table above.
 
-All evidence files are unmodified originals committed to git. The commit timestamp is the authoritative collection date. Do not request evidence outside this repository — if an artifact is not here, it has not been collected yet.
+Committed evidence files are unmodified originals; the commit timestamp is the authoritative collection date. Some evidence may be collected but not yet committed — consult the Findings & Remediation Register for collection status. If an artifact is neither committed nor listed there as collected, it has not yet been collected.
 
 ---
 
